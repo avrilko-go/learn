@@ -1,0 +1,100 @@
+syntax = "proto3";
+
+package abi;
+
+message CommandRequest {
+  oneof request_data {
+    HGet hGet = 1;
+    HMGet hMGet = 2;
+    HGetAll hGetAll = 3;
+    HSet hSet = 4;
+    HMSet hMSet = 5;
+    HExist hExist = 6;
+    HMExist hMExist = 7;
+    HDel hDel = 8;
+    HMDel hMDel = 9;
+    Subscribe subscribe = 10;
+    UnSubscribe unSubscribe = 11;
+    Publish publish = 12;
+  }
+}
+
+message CommandResponse {
+  uint32 status = 1;
+  string message = 2;
+  repeated Value values = 3;
+  repeated KvPair kvPairs = 4;
+}
+
+message HGet {
+  string table = 1;
+  string key = 2;
+}
+
+message HMGet {
+  string table = 1;
+  repeated string keys = 2;
+}
+
+message HGetAll {
+  string table = 1;
+}
+
+message HSet {
+  string table = 1;
+  KvPair kvPair = 2;
+}
+
+message HMSet {
+  string table = 1;
+  repeated KvPair kvPairs = 2;
+}
+
+message HExist {
+  string table = 1;
+  string key = 2;
+}
+
+message HMExist {
+  string table = 1;
+  repeated string keys = 2;
+}
+
+message HDel {
+  string table =1;
+  string key = 2;
+}
+
+message HMDel {
+  string table = 1;
+  repeated string keys = 2;
+}
+
+message Subscribe {
+  string topic = 1;
+}
+
+message UnSubscribe {
+  string topic = 1;
+  int64 id = 2;
+}
+
+message Publish {
+  string topic = 1;
+  repeated Value values = 2;
+}
+
+message Value {
+  oneof value {
+    string string = 1;
+    double float = 2;
+    bool bool = 3;
+    bytes binary = 4;
+    int64 int = 5;
+  }
+}
+
+message KvPair {
+  string key = 1;
+  Value value = 2;
+}

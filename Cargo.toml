@@ -1,0 +1,34 @@
+[package]
+name = "learn"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "kvs"
+path = "src/server.rs"
+
+[[bin]]
+name = "kvc"
+path = "src/client.rs"
+
+
+[dependencies]
+prost = "0.11.0"
+tokio = {version="1",features=["full"]}
+anyhow = "1.0.64"
+serde = {version="1",features=["derive"]}
+toml = "0.5.9"
+tracing = "0.1.36"
+tracing-subscriber = {version="0.3.1", features=["env-filter","json"]}
+tracing-appender = "0.2.2"
+tracing-opentelemetry = "0.18.0"
+opentelemetry-jaeger = "0.17.0"
+s2n-quic = "1.9.1"
+thiserror = "1.0.36"
+dashmap = "5.4.0"
+
+[build-dependencies]
+prost-build = "0.11.1"
+
+
